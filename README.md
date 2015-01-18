@@ -30,13 +30,22 @@ require 'socialmodule.php';
 
 # Instantiate your entities using the alias, and use functionality added by the different modules.
 $user = new \Decorated\Entity\User;
+
+($user instanceof \Entity\User); // true
+
 $user->name = "John";
 $user->login('johndoe', 's3cret');
+
 
 $post = new \Decorated\Entity\Post;
 if( $post instanceof \SocialModule\LikeableInterface ) {
     $post->addLikedBy($user);
     $post->getLikes(); # 1
+}
+
+# The user entity was affected by both modules!
+if( $user instanceof \SocialModule\LikeableInterface ) {
+    $user->addLikedBy(new \Decorated\Entity\User);
 }
 ```
 
@@ -51,7 +60,7 @@ trait CanLoginTrait {
     }
 }
 
-$dm = DecoratorModule\DecoratorManager::instance();
+$dm = \DecoratorModule\DecoratorManager::instance();
 $dm->decorate('Decorated\Entity\User')
     ->use('\LoginModule\CanLoginTrait');
 
@@ -90,8 +99,12 @@ trait LikeableTrait {
 
 $dm = new \DecoratorModule\DecoratorManager::instance();
 
-# Posts can be liked
+# Posts and users can be liked
 $dm->decorate('Decorated\Entity\Post', 'Entity\Post')
+    ->use('\SharingModule\LikeableTrait')
+    ->implements('\SharingModule\LikeableInterface');
+
+$dm->decorate('Decorated\Entity\User', 'Entity\User')
     ->use('\SharingModule\LikeableTrait')
     ->implements('\SharingModule\LikeableInterface');
 ```
