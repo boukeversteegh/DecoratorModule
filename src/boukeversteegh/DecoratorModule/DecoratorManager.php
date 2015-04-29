@@ -39,11 +39,15 @@ class DecoratorManager {
 		return self::$decorators[$alias];
 	}
 
-
 	public static function autoload($alias) {
 		if( !isset(self::$decorators[$alias]) ) return;
 
 		$decorator = self::instance()->decorate($alias);
 		$decorator->autoload($alias);
+	}
+
+	public function getDefinition($alias) {
+		$decorator = self::instance()->decorate($alias);
+		return $decorator->getDefinition($alias);	
 	}
 }

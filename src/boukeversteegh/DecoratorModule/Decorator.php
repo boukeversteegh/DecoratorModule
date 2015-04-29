@@ -51,6 +51,11 @@ class Decorator {
 	}
 
 	public function autoload($alias) {
+		$definition = $this->getDefinition($alias);
+		eval($definition);
+	}
+
+	public function getDefinition($alias) {
 		$class_path = explode('\\', $this->classname);
 		$class_basename  = array_pop($class_path);
 		$class_namespace = implode('\\', $class_path);
@@ -185,7 +190,6 @@ class Decorator {
 		}
 
 		$def = ("{$def_namespace}{$def_class_docblock}class {$def_class_basename} {$def_extends}{$def_implements}\n{\n{$def_use}{$def_properties}{$def_methods}};\n");
-
-		eval($def);
+		return $def;
 	}
 }

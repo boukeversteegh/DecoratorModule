@@ -103,4 +103,19 @@ class DecoratorModuleTest extends \PHPUnit_Framework_TestCase
         $this->assertClassHasAttribute('title', '\separate\b1');
         $this->assertClassNotHasAttribute('title', 'separate\b2');
     }
+
+    /**
+     * @test
+     */
+    public function it_should_copy_baseclass_docblocks()
+    {
+        $dm = DecoratorManager::instance();
+        
+        $definition = $dm->decorate('foo\book1', 'Fixtures\Entity\Book')->getDefinition('foo\book1');
+
+        $this->stringContains(
+            "/**".
+            " * Book Class".
+            " */", $definition);
+    }
 }

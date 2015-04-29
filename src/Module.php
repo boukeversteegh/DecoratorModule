@@ -1,11 +1,16 @@
 <?php
 namespace boukeversteegh\DecoratorModule;
 
-require_once __DIR__.'/boukeversteegh/DecoratorModule/DecoratorManager.php';
-require_once __DIR__.'/boukeversteegh/DecoratorModule/Decorator.php';
-
 class Module {
-    public function __construct() {
-        DecoratorManager::register();
+	public function getAutoloaderConfig()
+    {
+        return array(
+            'Zend\Loader\StandardAutoloader' => array(
+                'namespaces' => array(
+                    __NAMESPACE__ => __DIR__ . '/boukeversteegh/DecoratorModule',
+                ),
+            ),
+        );
+ 
     }
 }
