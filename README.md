@@ -62,7 +62,7 @@ trait CanLoginTrait {
 
 $dm = \DecoratorModule\DecoratorManager::instance();
 $dm->decorate('Decorated\Entity\User')
-    ->use('\LoginModule\CanLoginTrait');
+    ->trait('\LoginModule\CanLoginTrait');
 
 ```
 
@@ -101,10 +101,10 @@ $dm = new \DecoratorModule\DecoratorManager::instance();
 
 # Posts and users can be liked
 $dm->decorate('Decorated\Entity\Post', 'Entity\Post')
-    ->use('\SharingModule\LikeableTrait')
+    ->trait('\SharingModule\LikeableTrait')
     ->implements('\SharingModule\LikeableInterface');
 
 $dm->decorate('Decorated\Entity\User', 'Entity\User')
-    ->use('\SharingModule\LikeableTrait')
+    ->trait('\SharingModule\LikeableTrait')
     ->implements('\SharingModule\LikeableInterface');
 ```

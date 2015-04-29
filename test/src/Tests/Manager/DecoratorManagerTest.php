@@ -39,11 +39,11 @@ class DecoratorModuleTest extends \PHPUnit_Framework_TestCase
 
 
         $dm->decorate('myBook','Fixtures\Entity\Book')
-            ->use('\Fixtures\Traits\hasTitle');
+            ->trait('\Fixtures\Traits\hasTitle');
 
         $dm->decorate('myBook')
-            ->use('\Fixtures\Traits\hasAuthor')
-            ->use('\Fixtures\Library\lendableTrait');
+            ->trait('\Fixtures\Traits\hasAuthor')
+            ->trait('\Fixtures\Library\lendableTrait');
 
         $mybook = new \myBook;
         $mybook->setTitle('Book Title');
@@ -62,7 +62,7 @@ class DecoratorModuleTest extends \PHPUnit_Framework_TestCase
     {
         $dm = DecoratorManager::instance();
         $dm->decorate('myBook', 'Fixtures\Entity\Book')
-            ->use('\Fixtures\Traits\hasTitle');
+            ->trait('\Fixtures\Traits\hasTitle');
         
         $this->assertTrue(class_exists('\\myBook'), 'Aliased class doesn\'t exist');
 
@@ -95,7 +95,7 @@ class DecoratorModuleTest extends \PHPUnit_Framework_TestCase
     {
         $dm = DecoratorManager::instance();
         $dm->decorate('separate\b1', 'Fixtures\Entity\Book')
-            ->use('\Fixtures\Traits\hasTitle');
+            ->trait('\Fixtures\Traits\hasTitle');
         $dm->decorate('separate\b2', 'Fixtures\Entity\Book');
 
         new \separate\b1;

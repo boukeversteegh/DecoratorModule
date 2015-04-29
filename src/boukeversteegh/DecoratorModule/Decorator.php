@@ -15,7 +15,7 @@ class Decorator {
 	}
 
 	public function __call($method, $args) {
-		if( $method === 'use' ) {
+		if( $method === 'trait' ) {
 			return $this->addTrait($args);
 		}
 		if( $method === 'implements' ) {
